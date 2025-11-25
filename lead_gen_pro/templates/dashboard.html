@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class='text-2xl font-bold mb-4'>Lead Dashboard</h1>
+<table class='min-w-full bg-white'>
+<thead>
+<tr><th class='py-2'>Name</th><th>Source</th><th>Score</th><th>Link</th></tr>
+</thead>
+<tbody>
+{% for lead in leads %}
+<tr><td>{{ lead.name }}</td><td>{{ lead.source }}</td><td>{{ lead.score }}</td><td><a href='{{ lead.url }}' target='_blank' class='text-blue-500'>View</a></td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
