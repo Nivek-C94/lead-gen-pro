@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "lead-gen-pro"
+version = "0.1.0"
+description = "Automated lead generation engine using botasaurus_driver and FastAPI"
+authors = ["Nivek-C94"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+uvicorn = {extras = ["standard"], version = "^0.30.0"}
+jinja2 = "^3.1.2"
+botasaurus-driver = "*"
+sqlite-utils = "^3.36"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0.0"
+ruff = "^0.5.0"
+black = "^24.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
