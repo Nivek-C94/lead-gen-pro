@@ -1,0 +1,55 @@
+name: Lead-Gen-Pro CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction --no-ansi
+
+      - name: Lint with Ruff
+        run: |
+          poetry run ruff check .
+
+      - name: Format check with Black
+        run: |
+          poetry run black --check .
+
+      - name: Run tests with Pytest
+        run: |
+          poetry run pytest -v
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t lead-gen-pro .
+
+      - name: Validate container
+        run: docker run --rm lead-gen-pro python -c "print('Docker container OK')"
